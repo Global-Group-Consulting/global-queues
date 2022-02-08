@@ -22,3 +22,4 @@ Route::post("/fill", [\App\Http\Controllers\FileController::class, "fill"]);
 Route::post("/fill_and_store", [\App\Http\Controllers\FileController::class, "fillAndStore"]);
 
 Route::get("/{file}/show", [\App\Http\Controllers\FileController::class, "show"]);
+Route::delete("/{file}", [\App\Http\Controllers\FileController::class, "destroy"]);

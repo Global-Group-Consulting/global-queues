@@ -5,6 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
 
+/**
+ * @property string fileUrl
+ * @property string extname
+ * @property string clientName
+ * @property string fieldName
+ * @property string type
+ * @property string subtype
+ * @property int    size
+ */
 class File extends Model {
   use HasFactory;
   

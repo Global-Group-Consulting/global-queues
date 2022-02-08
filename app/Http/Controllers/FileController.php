@@ -79,7 +79,7 @@ class FileController extends Controller {
     $filePath = "/filledDocs/$fileName";
     
     Storage::put($filePath, $fileContent);
-    
+  
     return File::create([
       "fileUrl"    => $filePath,
       "clientName" => $fileName,
@@ -88,5 +88,11 @@ class FileController extends Controller {
       "subtype"    => "pdf",
       "size"       => Storage::size($filePath)
     ]);
+  }
+  
+  function destroy(File $file) {
+    Storage::delete($file->fileUrl);
+    
+    $file->delete();
   }
 }
