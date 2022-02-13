@@ -19,7 +19,6 @@ class JobListsSeeder extends Seeder {
       "queueName"         => ".email",
       "payloadValidation" => "",
       "payloadKey"        => "data",
-      "queue"             => "data",
       "apiUrl"            => null,
       "apiMethod"         => null,
       "apiHeaders"        => null,
