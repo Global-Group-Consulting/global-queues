@@ -16,19 +16,25 @@ class JobListsSeeder extends Seeder {
       "title"             => "Send Email",
       "description"       => "Coda che gestice l'invio delle email",
       "class"             => "App\Jobs\SendEmail",
+      "queueName"         => ".email",
       "payloadValidation" => "",
-      "payloadKey"        => "data"
+      "payloadKey"        => "data",
+      "queue"             => "data",
+      "apiUrl"            => null,
+      "apiMethod"         => null,
+      "apiHeaders"        => null,
     ]);
     
     JobList::create([
       "title"             => "TriggerBriteRecapitalization",
       "description"       => "Lancia la ricapitalizzazione dei brite per un singolo utente",
       "class"             => "App\Jobs\TriggerBriteRecapitalization",
+      "queueName"         => ".triggers",
       "payloadValidation" => "",
       "payloadKey"        => "data",
-      "apiUrl"            => "",
-      "apiMethod"         => "",
-      "apiHeaders"        => "",
+      "apiUrl"            => null,
+      "apiMethod"         => null,
+      "apiHeaders"        => null,
     ]);
   }
 }
