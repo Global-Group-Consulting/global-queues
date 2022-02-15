@@ -66,7 +66,7 @@ class AppServiceProvider extends ServiceProvider {
 
 //      $command = (unserialize($payload['data']['command']));
 //      dump($command);
-    
+  
     });
   }
 }
