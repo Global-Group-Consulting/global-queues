@@ -21,6 +21,9 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string|null                     $apiUrl
  * @property string|null                     $apiMethod
  * @property string|null                     $apiHeaders
+ * @property string|null                     $authType
+ * @property string|null                     $authUsername
+ * @property string|null                     $authPassword
  * @method static Builder|JobList newModelQuery()
  * @method static Builder|JobList newQuery()
  * @method static Builder|JobList query()

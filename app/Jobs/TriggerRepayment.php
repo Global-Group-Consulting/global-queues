@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\JobList;
 use Exception;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\Client\Response;
@@ -13,13 +14,11 @@ use Illuminate\Queue\ManuallyFailedException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 
-/**
- */
-class TriggerBriteRecapitalization implements ShouldQueue {
+class TriggerRepayment implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
   
   /**
-   * @var array{userId: string, amountEuro: float, amount: integer}
+   * @var array{userId: string, amount: float, notes: string}
    */
   protected $data;
   
@@ -31,7 +30,7 @@ class TriggerBriteRecapitalization implements ShouldQueue {
   /**
    * Create a new job instance.
    *
-   * @param  array{userId: string, amountEuro: float, amount: integer}  $data
+   * @param  array{userId: string, amount: float, notes: string}  $data
    *
    * @return void
    */
@@ -43,7 +42,7 @@ class TriggerBriteRecapitalization implements ShouldQueue {
    * Execute the job.
    *
    * @return void
-   * @throws ManuallyFailedException | Exception
+   * @throws Exception | ManuallyFailedException
    */
   public function handle() {
     $selfName          = self::class;
@@ -69,19 +68,26 @@ class TriggerBriteRecapitalization implements ShouldQueue {
        * @var Response
        */
       $result = Http::withOptions([])
-        ->withHeaders($headers)
-        ->$method($url, $payload->data);
-  
-      if ($result->failed()) {
-        throw new Exception(json_encode($result->json()));
+        ->withHeaders($headers);
+      
+      if ($this->jobSettings->authType === "Basic") {
+        $result = $result->withBasicAuth($this->jobSettings->authUsername, $this->jobSettings->authPassword);
       }
-  
+      
+      $result = $result->$method($url, $payload->data);
+      
+      
+      if ($result->failed()) {
+        $result->throw();
+        
+        return;
+      }
+      
       $this->job->respData = $result->body();
       $this->job->reqData  = json_encode($payload->data);
     } catch (Exception $exception) {
       dump($exception);
-      throw new Exception($exception->getMessage());
+      throw $exception;
     }
-    
   }
 }
