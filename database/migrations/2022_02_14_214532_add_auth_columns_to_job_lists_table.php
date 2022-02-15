@@ -12,9 +12,9 @@ class AddAuthColumnsToJobListsTable extends Migration {
    */
   public function up() {
     Schema::table('job_lists', function (Blueprint $table) {
-      $table->string("authType");
-      $table->string("authUsername");
-      $table->string("authPassword");
+      $table->string("authType")->nullable();
+      $table->string("authUsername")->nullable();
+      $table->string("authPassword")->nullable();
     });
   }
   
