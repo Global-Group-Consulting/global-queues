@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|FailedJob wherePayload($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FailedJob whereQueue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FailedJob whereUuid($value)
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class FailedJob extends Model
 {

@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Job wherePayload($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereQueue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereReservedAt($value)
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Job extends Model
 {

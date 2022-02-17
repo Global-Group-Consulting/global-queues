@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * App\Models\JobList
+ * App\Models\JobListController
  *
  * @mixin Builder
  * @property int                             $id
@@ -41,6 +41,21 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class JobList extends Model {
   use HasFactory;
+  
+  protected $fillable = [
+    "title",
+    "description",
+    "class",
+    "queueName",
+    "payloadKey",
+    "payloadValidation",
+    "apiUrl",
+    "apiMethod",
+    "apiHeaders",
+    "authType",
+    "authPassword",
+    "authUsername",
+  ];
   
   protected $payloadKey;
 }
