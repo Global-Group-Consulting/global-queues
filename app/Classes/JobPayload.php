@@ -33,16 +33,16 @@ class JobPayload {
    */
   protected $command;
   
-  
   public function __construct(string $payload) {
     $this->rawData   = $payload;
     $this->arrayData = json_decode($payload, true);
+    
     try {
       $this->command = unserialize($this->arrayData["data"]["command"]);
     } catch (\Exception $er) {
-      var_dump($er);
+      return;
     }
-  
+    
     $this->arrayData["data"]["commandRaw"] = $this->arrayData["data"]["command"];
     $this->arrayData["data"]["command"]    = $this->command ? $this->command->toArray() : [];
   }
