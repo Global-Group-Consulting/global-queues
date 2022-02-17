@@ -2,12 +2,17 @@
 
 namespace App\Jobs;
 
-use App\Classes\BasicJob;
-use Coconuts\Mail\PostmarkTemplateMailable;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Coconuts\Mail\PostmarkTemplateMailable;
 use Illuminate\Support\Facades\Validator;
 
-class SendEmail extends BasicJob {
+class SendEmail implements ShouldQueue {
+  use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
   
   /**
    * @var array{from: string, alias: string, to: string, subject: string, templateData: array }

@@ -2,21 +2,16 @@
 
 namespace App\Jobs;
 
+use App\Classes\BasicJob;
 use App\Models\JobList;
 use Exception;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\Client\Response;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\ManuallyFailedException;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 
 /**
  */
-class TriggerBriteRecapitalization implements ShouldQueue {
-  use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+class TriggerBriteRecapitalization extends BasicJob {
   
   /**
    * @var array{userId: string, amountEuro: float, amount: integer}

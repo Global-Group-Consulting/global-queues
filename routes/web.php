@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,42 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-  /*\App\Jobs\TriggerBriteRecapitalization::dispatch([
-    "userId"     => "867as86asd876ad87ads",
-    "amountEuro" => 250,
-    "amount"     => 500
-  ]);*/
-  
-  return "hi";
-  /*\App\Jobs\SendEmail::dispatch(["firstName" => "Mario",
-                                 "lastname"  => "Rossi",
-                                 "from"      => "noreply@globalgroup . consulting",
-                                 "subject"   => "",
-                                 "to"        => "pippo@gmail . com",
-                                 "alias"     => "main - account - approved"
-  ]);*/
-  
-  /*$job = \App\Models\Job::all()->last();
-//  dump($job);
-  $data = $job->payload;
-  
-  $jsonData = json_decode($data, true);
-  dump($jsonData);
+Auth::routes([
+  "register" => false,
+  "reset"    => false,
+  "confirm"  => false
+]);
 
-// return $jsonData;
-//  return ($jsonData["data"]["command"]);
-  $res = unserialize($jsonData["data"]["command"]);
-  
-  dump($res);
-  
-  print_r($res);
-
-//  dispatch(new \App\Jobs\SomeJob("Some data"));
-  
-  return "Hi";*/
-});
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware("auth")
+  ->group(function () {
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+    Route::resource("jobList", \App\Http\Controllers\JobListController::class);
+    Route::get("jobResult", [\App\Http\Controllers\JobResultController::class, "index"])->name("jobResult.index");
+    Route::get("jobResult/{job}", [\App\Http\Controllers\JobResultController::class, "show"])->name("jobResult.show");
+    
+    Route::get("job", [\App\Http\Controllers\JobController::class, "index"])->name("job.index");
+    Route::get("job/{job}", [\App\Http\Controllers\JobController::class, "show"])->name("job.show");
+    
+    Route::get("failedJob", [\App\Http\Controllers\FailedJobController::class, "index"])->name("failedJob.index");
+    Route::patch("failedJob/{failedJob}/retry", [\App\Http\Controllers\FailedJobController::class, "retry"])->name("failedJob.retry");
+    Route::delete("failedJob/{failedJob}", [\App\Http\Controllers\FailedJobController::class, "destroy"])->name("failedJob.destroy");
+  });

@@ -9,7 +9,7 @@
     @hasSection("title")
       @yield("title") |
     @endif
-    Global IAM</title>
+    Global Queues</title>
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,6 +20,8 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+  @yield("header_scripts")
 </head>
 
 <body>
@@ -28,7 +30,8 @@
     {{-- sidebar --}}
     <div class="d-flex h-100">
       @auth
-        @include('partials.sidebar')
+        <x-the-sidebar></x-the-sidebar>
+{{--        @include('partials.sidebar')--}}
       @endauth
 
       <div class="flex-fill d-flex flex-column mw-100 overflow-hidden">
