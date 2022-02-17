@@ -44,6 +44,10 @@
 
       @foreach($options as $option)
         @php
+          if(!isset($value)){
+            $value = "";
+          }
+
           $optionValue = isset($optionsKey) ? $option[$optionsKey] : $option["value"];
           $optionLabel = isset($optionsText) && key_exists("fn", $optionsText) ?
           $optionsText["fn"]($option) : $option["text"] ;

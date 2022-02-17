@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\FailedJob;
 use App\Models\JobResult;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider {
    * @return void
    */
   public function boot() {
+    
+    Paginator::useBootstrap();
     
     Queue::after(function (JobProcessed $event) {
       $payload = $event->job->payload();
@@ -66,7 +69,7 @@ class AppServiceProvider extends ServiceProvider {
 
 //      $command = (unserialize($payload['data']['command']));
 //      dump($command);
-    
+  
     });
   }
 }
