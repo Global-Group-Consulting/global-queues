@@ -3,11 +3,8 @@
 namespace App\Jobs;
 
 use App\Classes\BasicJob;
-use App\Models\JobList;
 use Exception;
-use Illuminate\Http\Client\Response;
 use Illuminate\Queue\ManuallyFailedException;
-use Illuminate\Support\Facades\Http;
 
 /**
  */
