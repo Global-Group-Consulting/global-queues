@@ -11,6 +11,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\ManuallyFailedException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 abstract class BasicJob implements ShouldQueue {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -64,7 +66,7 @@ abstract class BasicJob implements ShouldQueue {
    *
    * @return Job
    */
-  public function makeHttpCall(string $selfName): Job {
+  public function makeHttpCall(string $selfName, array $params = null): Job {
     $this->selfName = $selfName;
     $this->fetchJobSettings();
     
@@ -72,6 +74,12 @@ abstract class BasicJob implements ShouldQueue {
     $method  = $this->jobSettings->apiMethod ?? "post";
     $url     = $this->jobSettings->apiUrl;
     $headers = $this->jobSettings->apiHeaders;
+    
+    if (isset($params)) {
+      foreach ($params as $key => $value) {
+        $url = Str::replace("{" . $key . "}", $value, $url);
+      }
+    }
     
     if ( !$headers) {
       $headers = [];
@@ -105,8 +113,8 @@ abstract class BasicJob implements ShouldQueue {
     $data = get_object_vars($this);
     
     $data["dataRaw"] = $data["data"];
-    $data["data"] = $this->get_data();
-
+    $data["data"]    = $this->get_data();
+    
     return $data;
   }
   
