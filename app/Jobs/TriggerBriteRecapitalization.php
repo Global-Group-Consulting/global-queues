@@ -11,7 +11,7 @@ use Illuminate\Queue\ManuallyFailedException;
 class TriggerBriteRecapitalization extends BasicJob {
   
   /**
-   * @var array{userId: string, amountEuro: float, amount: integer}
+   * @var array{userId: string, amountEuro: float, amount: integer, fromUUID: string}
    */
   protected $data;
   
