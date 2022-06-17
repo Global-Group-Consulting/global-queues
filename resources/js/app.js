@@ -4,13 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-require('./dropdowns');
-require('./forms');
-require('./modals');
+require('./bootstrap')
+require('./dropdowns')
+require('./forms')
+require('./modals')
 
+import Dropdown from './components/Dropdown.vue'
 
-// window.Vue = require('vue').default;
+const { createApp } = require('vue')
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,6 +32,8 @@ require('./modals');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-/*const app = new Vue({
-    el: '#app',
-});*/
+
+const app = createApp({})
+
+// app.component('Dropdown', Dropdown)
+app.mount('#app')
