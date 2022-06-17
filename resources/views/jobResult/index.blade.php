@@ -25,8 +25,8 @@
               @foreach($jobs as $job)
                 <tr>
                   <td scope="row">{{ $job->uid }}</td>
-                  <td scope="row">{{ $job->name }}</td>
-                  <td scope="row">{{ $job->queue }}</td>
+                  <td scope="row">{{ last(explode("\\", $job->name)) }}</td>
+                  <td scope="row"><x-job-queue-badge :job="$job"/></td>
                   <td scope="row">{{ $job->created_at->format("d/m/y H:i:s") }}</td>
                   <td class="text-nowrap">
                     <a href="{{route('jobResult.show', $job->id)}}" class="btn btn-link">
