@@ -29,8 +29,8 @@ window.addEventListener("DOMContentLoaded", function () {
     payloadModal.addEventListener('show.bs.modal', function (event) {
       // Button that triggered the modal
       const button = event.relatedTarget
-      const templateTag = button.querySelector("template");
-      const modalContent = this.querySelector(".modal-body")
+      const templateTag = button.querySelector(".template");
+      const modalContent = event.currentTarget.querySelector(".modal-body")
       
       modalContent.innerHTML = "";
       
@@ -38,9 +38,7 @@ window.addEventListener("DOMContentLoaded", function () {
         return;
       }
       
-      const template = templateTag.content.cloneNode(true);
-      
-      modalContent.append(template);
+      modalContent.innerHTML = templateTag.innerHTML;
       
       Prism.highlightAllUnder(modalContent);
     })
