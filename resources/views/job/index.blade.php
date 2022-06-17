@@ -43,7 +43,7 @@
 
                 <tr>
                   <td scope="row">{{ $payload->uuid }}</td>
-                  <td scope="row">{{ $job->queue }}</td>
+                  <td scope="row"><x-job-queue-badge :job="$job"/></td>
                   <td scope="row">{{ $payload->displayName }}</td>
                   <td scope="row" class="text-center">{{ $job->attempts }}</td>
                   <td scope="row" class="text-center">{{ date("d/m/Y H:i:s",$job->available_at) }}</td>

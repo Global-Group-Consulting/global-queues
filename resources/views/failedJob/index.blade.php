@@ -42,32 +42,14 @@
 
                 <tr>
                   <td scope="row">{{ $payload->uuid }}</td>
-                  <td scope="row">{{ $job->queue }} <br> {{ $job->connection  }}</td>
-                  <td scope="row">{{ $payload->displayName }}</td>
+                  <td scope="row">
+                    <x-job-queue-badge :job="$job"/>
+
+                    <br> {{ $job->connection  }}</td>
+                  <td scope="row">{{ last(explode("\\", $payload->displayName)) }}</td>
                   <td scope="row" class="text-center">{{ $job->failed_at }}</td>
-                  <td scope="row" class="text-center">
-                    <button class="btn btn-warning"
-                            data-bs-toggle="modal"
-                            data-bs-target="#payloadModal"
-                            title="Mostra payload">
-                      <i class="fas fa-eye"></i>
-                      <template>
-                        <h4>Exception</h4>
-                        <pre style="max-height: 200px"><code class="language-php">{{$job->exception}}</code></pre>
-
-                        <h4 class="mt-4">Payload</h4>
-                        <pre><code class="language-json">{{$payload->toJson()}}</code></pre>
-                      </template>
-                    </button>
-
-                    <button class="btn btn-info" title="Riprova"
-                            data-bs-toggle="modal"
-                            data-bs-target="#retryModal"
-                            data-bs-id="{{$job->id}}"><i class="fas fa-retweet"></i></button>
-                    <button class="btn btn-danger" title="Elimina"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                            data-bs-id="{{$job->id}}"><i class="fas fa-trash"></i></button>
+                  <td scope="row" class="text-center text-nowrap">
+                    @include('components.failed-job-btns', ['job' => $job, 'payload' => $payload])
                   </td>
                 </tr>
               @endforeach
