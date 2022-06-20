@@ -48,14 +48,8 @@
                   <td scope="row" class="text-center">{{ $job->attempts }}</td>
                   <td scope="row" class="text-center">{{ date("d/m/Y H:i:s",$job->available_at) }}</td>
                   <td scope="row" class="text-center">
-                    <button class="btn btn-warning"
-                            data-bs-toggle="modal"
-                            data-bs-target="#payloadModal">
-                      <i class="fas fa-eye"></i>
-                      <template>
-                        <pre><code class="language-json">{{$payload->toJson()}}</code></pre>
-                      </template>
-                    </button>
+
+                    @include('components.waiting-job-btns', ['job' => $job, 'payload' => $payload])
                   </td>
                 </tr>
               @endforeach
@@ -77,4 +71,7 @@
   </div>
 
   @include("partials.modals.payload", [])
+  @include("partials.modals.delete", [
+    "action"=>route('job.destroy', "_id")
+  ])
 @endsection
