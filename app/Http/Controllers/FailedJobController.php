@@ -15,11 +15,10 @@ class FailedJobController extends Controller {
   public function index(Request $request): View {
     $query           = collect($request->query());
     $filters         = collect($query->get("filters"));
-    $whereQuery      = collect([]);
     $sqlQueryBuilder = FailedJob::orderBy("failed_at", "desc");
     
     if ($filters->count() > 0) {
-      $whereQuery = $filters->each(function ($value, $key) use ($sqlQueryBuilder) {
+      $filters->each(function ($value, $key) use ($sqlQueryBuilder) {
         if (is_null($value)) {
           return;
         }
@@ -33,9 +32,6 @@ class FailedJobController extends Controller {
     }
     
     $jobs = $sqlQueryBuilder->paginate();
-
-//    $jobs = FailedJob::orderBy("failed_at", "desc")->where($whereQuery)->get();//->paginate();
-    
     
     return view("failedJob.index", compact("jobs", "query"));
   }

@@ -5,6 +5,8 @@
     <div class="row justify-content-center">
       <div class="col-md-12">
 
+        <x-filters-completed-jobs routeName="jobResult.index"></x-filters-completed-jobs>
+
         <div class="card">
           <div class="card-header">{{ __('Esito Job eseguiti') }}</div>
 
