@@ -23,6 +23,7 @@
               <thead>
               <tr>
                 <th scope="col">Titolo</th>
+                <th scope="col">Coda</th>
                 <th scope="col">Classe</th>
                 <th scope="col">Descrizione</th>
                 <th></th>
@@ -32,7 +33,8 @@
               @foreach($jobs as $job)
                 <tr>
                   <td scope="row">{{ $job->title }}</td>
-                  <td scope="row">{{ $job->class }}</td>
+                  <td scope="row">{{ $job->queueName }}</td>
+                  <td scope="row">{{ last(explode("\\", $job->class)) }}</td>
                   <td scope="row">{{ $job->description }}</td>
                   <td class="text-nowrap">
                     <a href="{{route('jobList.edit', $job->id)}}" class="btn btn-link">
