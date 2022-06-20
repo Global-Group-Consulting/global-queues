@@ -9,6 +9,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-12">
+        <x-filters-failedJobs routeName="failedJob.index"></x-filters-failedJobs>
 
         <div class="card">
           <div class="card-header">{{ __('Job falliti') }}</div>
