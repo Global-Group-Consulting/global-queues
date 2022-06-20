@@ -11,11 +11,25 @@ class JobResultController extends Controller {
    *
    * @return \Illuminate\Http\Response
    */
-  public function index() {
-    $data = JobResult::where([])->orderBy("created_at", "DESC")->paginate();
+  public function index(Request $request) {
+    $query           = collect($request->query());
+    $filters         = collect($query->get("filters"));
+    $sqlQueryBuilder = JobResult::orderBy("created_at", "desc");
+    
+    if ($filters->count() > 0) {
+      $filters->each(function ($value, $key) use ($sqlQueryBuilder) {
+        if (is_null($value)) {
+          return;
+        }
+        
+        $sqlQueryBuilder->where($key, $value);
+      });
+    }
+    
+    $jobs = $sqlQueryBuilder->paginate();
     
     return view("jobResult.index", [
-      "jobs" => $data
+      "jobs" => $jobs
     ]);
   }
   
