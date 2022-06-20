@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
 
 class JobController extends Controller {
@@ -33,5 +35,11 @@ class JobController extends Controller {
    */
   public function show(Job $job): View {
     return view("jobResult.show", compact("job"));
+  }
+  
+  public function destroy(Job $job): RedirectResponse {
+    $job->delete();
+    
+    return redirect(url()->previous());
   }
 }

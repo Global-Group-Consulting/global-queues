@@ -30,6 +30,7 @@ Route::middleware("auth")
     
     Route::get("job", [\App\Http\Controllers\JobController::class, "index"])->name("job.index");
     Route::get("job/{job}", [\App\Http\Controllers\JobController::class, "show"])->name("job.show");
+    Route::delete("job/{job}", [\App\Http\Controllers\JobController::class, "destroy"])->name("job.destroy");
     
     Route::get("failedJob", [\App\Http\Controllers\FailedJobController::class, "index"])->name("failedJob.index");
     Route::patch("failedJob/{failedJob}/retry", [\App\Http\Controllers\FailedJobController::class, "retry"])->name("failedJob.retry");
