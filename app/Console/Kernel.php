@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Jobs\Ping;
 use App\Jobs\TriggerMonthlyRecapitalization;
 use App\Models\JobList;
 use Illuminate\Console\Scheduling\Schedule;
