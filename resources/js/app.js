@@ -8,6 +8,7 @@ require('./bootstrap')
 require('./dropdowns')
 require('./forms')
 require('./modals')
+require('./tooltips')
 
 import Dropdown from './components/Dropdown.vue'
 

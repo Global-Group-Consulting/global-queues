@@ -56,6 +56,14 @@ class TheSidebar extends Component {
         "active"  => (strpos(Route::currentRouteName(), 'jobList.index') === 0),
         "divider" => "top"
       ],
+  
+      [
+        "url"    => route("mongoJobs.index"),
+        "icon"   => "fa-database text-info",
+        "text"   => "Job MongoDb",
+        "active" => (strpos(Route::currentRouteName(), 'mongoJobs.index') === 0),
+        "divider" => "top"
+      ],
     ];
     
     return view('components.the-sidebar', compact("links"));
