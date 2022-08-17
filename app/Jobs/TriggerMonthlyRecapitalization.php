@@ -35,3 +35,4 @@ class TriggerMonthlyRecapitalization extends BasicJob {
     }
   }
 }
+
