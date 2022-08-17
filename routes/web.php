@@ -35,4 +35,7 @@ Route::middleware("auth")
     Route::get("failedJob", [\App\Http\Controllers\FailedJobController::class, "index"])->name("failedJob.index");
     Route::patch("failedJob/{failedJob}/retry", [\App\Http\Controllers\FailedJobController::class, "retry"])->name("failedJob.retry");
     Route::delete("failedJob/{failedJob}", [\App\Http\Controllers\FailedJobController::class, "destroy"])->name("failedJob.destroy");
+  
+    Route::get("mongoJobs", [\App\Http\Controllers\MongoJobController::class, "index"])->name("mongoJobs.index");
+    Route::get("mongoJobs/{job}", [\App\Http\Controllers\MongoJobController::class, "show"])->name("mongoJobs.show");
   });
