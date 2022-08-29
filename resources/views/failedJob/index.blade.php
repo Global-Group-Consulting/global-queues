@@ -11,6 +11,16 @@
       <div class="col-md-12">
         <x-filters-failed-jobs routeName="failedJob.index"></x-filters-failed-jobs>
 
+        <ul class="nav mb-4 justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link text-danger" aria-current="page" href="#"
+               data-bs-toggle="modal"
+               data-bs-target="#deleteAllFailedJobsModal">
+              <i class="fas fa-trash-can"></i>
+              Elimina tutto</a>
+          </li>
+        </ul>
+
         <div class="card">
           <div class="card-header">{{ __('Job falliti') }}</div>
 
@@ -77,5 +87,8 @@
   ])
   @include("partials.modals.delete", [
     "action"=>route('failedJob.destroy', "_id")
+  ])
+  @include("partials.modals.deleteAllFailedJobs", [
+    "action"=>route('failedJob.destroyAll', "_id")
   ])
 @endsection
