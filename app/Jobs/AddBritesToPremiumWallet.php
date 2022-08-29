@@ -3,12 +3,6 @@
 namespace App\Jobs;
 
 use App\Classes\BasicJob;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class AddBritesToPremiumWallet extends BasicJob {
   /**
@@ -24,8 +18,8 @@ class AddBritesToPremiumWallet extends BasicJob {
    * @return void
    */
   public function __construct($data) {
-    $this->data = $data;
-    // Fake job used as a placeholder. The actual job is in the ClubV2 App
+    $this->data     = $data;
+    $this->selfName = self::class;
   }
   
   /**
@@ -34,6 +28,6 @@ class AddBritesToPremiumWallet extends BasicJob {
    * @return void
    */
   public function handle() {
-    // Fake job used as a placeholder. The actual job is in the ClubV2 App
+    $this->makeHttpCall(self::class);
   }
 }

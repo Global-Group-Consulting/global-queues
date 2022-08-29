@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreJobListRequest;
 use App\Http\Requests\UpdateJobListRequest;
 use App\Models\JobList;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -105,7 +106,7 @@ class JobListController extends Controller {
   
   private function getClassesList() {
     $path  = app_path('Jobs');
-    $files = \Illuminate\Filesystem\Filesystem::allFiles($path);
+    $files = (new Filesystem())->allFiles($path);
     
     return array_map(function ($file) {
       $name = str_replace('.' . $file->getExtension(), "", $file->getFilename());
