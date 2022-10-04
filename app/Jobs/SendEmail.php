@@ -29,7 +29,7 @@ class SendEmail extends BasicJob {
    * @return void
    */
   public function handle() {
-    $data = Validator::validate($this->get_data() , [
+    $data = Validator::validate($this->get_data(), [
       "to"           => "required|string",
       "from"         => "required|string",
       "subject"      => "string",

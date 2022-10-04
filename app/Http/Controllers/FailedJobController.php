@@ -47,4 +47,10 @@ class FailedJobController extends Controller {
     
     return redirect(url()->previous());
   }
+  
+  public function destroyAll(): RedirectResponse {
+    FailedJob::truncate();
+    
+    return redirect(url()->previous());
+  }
 }
