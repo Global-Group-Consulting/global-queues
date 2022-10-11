@@ -3,9 +3,12 @@
 namespace App\Console;
 
 use App\Jobs\TriggerMonthlyRecapitalization;
+use App\Jobs\TriggerPeriodicNotifications;
 use App\Models\JobList;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
+use MongoDB\Collection;
 
 class Kernel extends ConsoleKernel {
   /**
@@ -17,13 +20,20 @@ class Kernel extends ConsoleKernel {
    */
   protected function schedule(Schedule $schedule) {
     // $schedule->command('inspire')->hourly();
-    $monthlyRecapitalizeJob = JobList::where('class', 'App\Jobs\TriggerMonthlyRecapitalization')
-      ->first();
     
-    $schedule->job(new TriggerMonthlyRecapitalization(), $monthlyRecapitalizeJob->queueName)
-      ->monthlyOn(16, '02:00')
-      ->timezone('Europe/Rome')
-      ->environments(['production']);
+    $monthlyRecapitalizeJob = JobList::where('class', 'App\Jobs\TriggerMonthlyRecapitalization')->first();
+    
+    try {
+      $schedule->job(new TriggerMonthlyRecapitalization(), $monthlyRecapitalizeJob->queueName)
+        ->monthlyOn(16, '02:00')
+        ->timezone('Europe/Rome')
+        ->environments(['production']);
+    } catch (\Exception $e) {
+      $message = "Missing configuration for TriggerMonthlyRecapitalization";
+      
+      dump($message);
+      Log::error($message);
+    }
   }
   
   /**
