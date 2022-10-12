@@ -4,9 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
+require('./dropdowns')
+require('./forms')
+require('./modals')
+require('./tooltips')
 
-window.Vue = require('vue').default;
+import Dropdown from './components/Dropdown.vue'
+
+const { createApp } = require('vue')
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +25,7 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +33,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+
+const app = createApp({})
+
+// app.component('Dropdown', Dropdown)
+app.mount('#app')

@@ -15,32 +15,17 @@
       </a>
     </li>
     <li>
-      <a href="{{ route('users.index') }}"
-        class="nav-link text-white {{ (strpos(Route::currentRouteName(), 'users.') === 0) ? 'active' : '' }}">
+      <a href="{{ route('jobList.index') }}"
+        class="nav-link text-white {{ (strpos(Route::currentRouteName(), 'jobList.index') === 0) ? 'active' : '' }}">
         <i class="fas fa-users"></i>
-        Utenti
+        Lista Job
       </a>
     </li>
     <li>
-      <a href="{{ route('apps.index') }}"
-        class="nav-link text-white {{ (strpos(Route::currentRouteName(), 'apps.') === 0) ? 'active' : '' }}">
-        <i class="fas fa-laptop-house"></i>
-        App
-      </a>
-    </li>
-    <li>
-      <a href="{{ route("roles.index") }}"
-        class="nav-link text-white {{ (strpos(Route::currentRouteName(), 'roles.') === 0) ? 'active' : '' }}">
-        <i class="fas fa-user-tag"></i>
-        Ruoli
-      </a>
-    </li>
-
-    <li>
-      <a href="{{ route("permissions.index") }}"
-         class="nav-link text-white {{ (strpos(Route::currentRouteName(), 'permissions.') === 0) ? 'active' : '' }}">
-        <i class="fas fa-user-tag"></i>
-        Permessi
+      <a href="{{ route('jobResult.index') }}"
+         class="nav-link text-white {{ (strpos(Route::currentRouteName(), 'jobResult.index') === 0) ? 'active' : '' }}">
+        <i class="fas fa-users"></i>
+        Risultati Job Completati
       </a>
     </li>
   </ul>

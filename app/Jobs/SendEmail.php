@@ -2,17 +2,12 @@
 
 namespace App\Jobs;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
+use App\Classes\BasicJob;
 use Coconuts\Mail\PostmarkTemplateMailable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
-class SendEmail implements ShouldQueue {
-  use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+class SendEmail extends BasicJob {
   
   /**
    * @var array{from: string, alias: string, to: string, subject: string, templateData: array }
@@ -34,7 +29,7 @@ class SendEmail implements ShouldQueue {
    * @return void
    */
   public function handle() {
-    $data = Validator::validate($this->data, [
+    $data = Validator::validate($this->get_data(), [
       "to"           => "required|string",
       "from"         => "required|string",
       "subject"      => "string",
