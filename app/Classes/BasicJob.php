@@ -58,7 +58,7 @@ abstract class BasicJob implements ShouldQueue {
       $toReturn = $this->data;
     }
     
-    return $toReturn;
+    return $toReturn ?? [$this->data];
   }
   
   /**

@@ -40,7 +40,7 @@
                 @include("partials.form_input", [
                   "label" => "Nome Queue",
                   "name" => "queueName",
-                  "value" => old("queueName"),
+                  "value" => old("queueName", $jobToClone["queueName"]),
                 ])
               </div>
             </div>
@@ -52,7 +52,7 @@
                   @include("partials.form_input", [
                     "label" => "Nome variabile Payload",
                     "name" => "payloadKey",
-                    "value" => old("payloadKey") ?? "data",
+                    "value" => old("payloadKey",$jobToClone["payloadKey"]) ?? "data",
                   ])
                 </div>
                 <div class="col">
@@ -72,14 +72,14 @@
                   @include("partials.form_input", [
                     "label" => "Url",
                     "name" => "apiUrl",
-                    "value" => old("apiUrl"),
+                    "value" => old("apiUrl", $jobToClone["apiUrl"]),
                   ])
                 </div>
                 <div class="col">
                   @include("partials.form_select", [
                     "label" => "Metodo",
                     "name" => "apiMethod",
-                    "value" => old("apiMethod"),
+                    "value" => old("apiMethod", $jobToClone["apiMethod"]),
                     "options" => [
                       [
                         "text" => "-",
@@ -104,7 +104,7 @@
                   @include("partials.form_input", [
                     "label" => "Headers",
                     "name" => "apiHeaders",
-                    "value" => old("apiHeaders"),
+                    "value" => old("apiHeaders", $jobToClone["apiHeaders"]),
                   ])
                 </div>
               </div>
@@ -117,7 +117,7 @@
                   @include("partials.form_select", [
                     "label" => "Tipologia",
                     "name" => "authType",
-                    "value" => old("authType"),
+                    "value" => old("authType", $jobToClone["authType"]),
                     "options" => [
                       [
                         "text" => "-",
@@ -134,14 +134,14 @@
                   @include("partials.form_input", [
                     "label" => "Username",
                     "name" => "authUsername",
-                    "value" => old("authUsername"),
+                    "value" => old("authUsername", $jobToClone["authUsername"]),
                   ])
                 </div>
                 <div class="col">
                   @include("partials.form_input", [
                     "label" => "Password",
                     "name" => "authPassword",
-                    "value" => old("authPassword"),
+                    "value" => old("authPassword", $jobToClone["authPassword"]),
                   ])
                 </div>
               </div>

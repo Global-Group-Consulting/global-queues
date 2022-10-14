@@ -37,14 +37,20 @@
                   <td scope="row">{{ last(explode("\\", $job->class)) }}</td>
                   <td scope="row">{{ $job->description }}</td>
                   <td class="text-nowrap">
-                    <a href="{{route('jobList.edit', $job->id)}}" class="btn btn-link">
+                    <a href="{{route('jobList.edit', $job->id)}}" class="btn btn-link" title="Modifica">
                       <i class="fas fa-edit"></i>
+                    </a>
+
+                    <a href="{{route('jobList.create',['clone' => $job->id])}}"
+                       class="btn btn-link text-warning" title="Duplica">
+                      <i class="fas fa-copy"></i>
                     </a>
 
                     <button class="btn btn-link text-danger"
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal"
-                            data-bs-id="{{$job->id}}">
+                            data-bs-id="{{$job->id}}"
+                            title="Elimina">
                       <i class="fas fa-trash"></i>
                     </button>
                   </td>
@@ -58,7 +64,7 @@
     </div>
   </div>
 
-@include("partials.modals.delete", [
-  "action"=> route("jobList.destroy", "_id")
-])
+  @include("partials.modals.delete", [
+    "action"=> route("jobList.destroy", "_id")
+  ])
 @endsection

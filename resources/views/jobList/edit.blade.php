@@ -3,6 +3,15 @@
 @section("content")
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-xl-10">
+      <ul class="nav mb-4 justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active text-warning" aria-current="page" href="{{route('jobList.create', ['clone' => $job->id])}}">
+            <i class="fas fa-copy"></i>
+            Clona
+          </a>
+        </li>
+      </ul>
+
       <div class="card ">
         <div class="card-header">{{ __('Modifica Job') }}</div>
 
