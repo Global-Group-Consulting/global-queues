@@ -29,9 +29,16 @@ class JobListController extends Controller {
    *
    * @return View
    */
-  public function create(): View {
+  public function create(Request $request): View {
+    $clone = $request->query("clone");
+    
+    if ($clone) {
+      $jobToClone = JobList::findOrFail($clone);
+    }
+    
     return view("jobList.create", [
-      "availableClasses" => $this->getClassesList()
+      "availableClasses" => $this->getClassesList(),
+      "jobToClone"       => $jobToClone ?? null,
     ]);
   }
   
@@ -85,9 +92,9 @@ class JobListController extends Controller {
    */
   public function update(UpdateJobListRequest $request, JobList $jobList) {
     $data = $request->validated();
-  
+    
     $jobList->update($data);
-  
+    
     return redirect()->route("jobList.index");
   }
   
