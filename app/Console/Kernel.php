@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\TriggerCalendarDailyReport;
 use App\Jobs\TriggerMonthlyRecapitalization;
 use App\Jobs\TriggerPeriodicNotifications;
 use App\Models\JobList;
@@ -22,6 +23,7 @@ class Kernel extends ConsoleKernel {
     // $schedule->command('inspire')->hourly();
     
     $monthlyRecapitalizeJob = JobList::where('class', 'App\Jobs\TriggerMonthlyRecapitalization')->first();
+    $dailyCalendarReportJob = JobList::where('class', 'App\Jobs\TriggerCalendarDailyReport')->first();
     
     try {
       $schedule->job(new TriggerMonthlyRecapitalization(), $monthlyRecapitalizeJob->queueName)
@@ -30,6 +32,18 @@ class Kernel extends ConsoleKernel {
         ->environments(['production']);
     } catch (\Exception $e) {
       $message = "Missing configuration for TriggerMonthlyRecapitalization";
+      
+      dump($message);
+      Log::error($message);
+    }
+    
+    try {
+      $schedule->job(new TriggerCalendarDailyReport(), $dailyCalendarReportJob->queueName)
+        ->twiceDailyAt(8, 18)
+        ->timezone('Europe/Rome')
+        ->environments(['production']);
+    } catch (\Exception $e) {
+      $message = "Missing configuration for TriggerCalendarDailyReport";
       
       dump($message);
       Log::error($message);
