@@ -12,8 +12,7 @@ class TriggerCalendarDailyReport extends BasicJob {
    *
    * @return void
    */
-  public function __construct($data) {
-    $this->data = $data;
+  public function __construct() {
     $this->selfName = self::class;
   }
   
