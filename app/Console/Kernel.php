@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\TriggerCalendarDailyReport;
+use App\Jobs\TriggerMonthlyCommissionsBlock;
 use App\Jobs\TriggerMonthlyRecapitalization;
 use App\Jobs\TriggerPeriodicNotifications;
 use App\Models\JobList;
@@ -21,10 +22,12 @@ class Kernel extends ConsoleKernel {
    */
   protected function schedule(Schedule $schedule) {
     // $schedule->command('inspire')->hourly();
-    
-    $monthlyRecapitalizeJob = JobList::where('class', 'App\Jobs\TriggerMonthlyRecapitalization')->first();
-    $dailyCalendarReportJob = JobList::where('class', 'App\Jobs\TriggerCalendarDailyReport')->first();
-    
+  
+    $monthlyRecapitalizeJob          = JobList::where('class', 'App\Jobs\TriggerMonthlyRecapitalization')->first();
+    $monthlyAgentCommissionsBlockJob = JobList::where('class', 'App\Jobs\TriggerMonthlyCommissionsBlock')->first();
+    $dailyCalendarReportJob          = JobList::where('class', 'App\Jobs\TriggerCalendarDailyReport')->first();
+  
+    // Ricapitalizzazione mensile
     try {
       $schedule->job(new TriggerMonthlyRecapitalization(), $monthlyRecapitalizeJob->queueName)
         ->monthlyOn(16, '02:00')
@@ -32,11 +35,12 @@ class Kernel extends ConsoleKernel {
         ->environments(['production']);
     } catch (\Exception $e) {
       $message = "Missing configuration for TriggerMonthlyRecapitalization";
-      
+    
       dump($message);
       Log::error($message);
     }
-    
+  
+    // Notifiche giornaliere calendario
     try {
       $schedule->job(new TriggerCalendarDailyReport(), $dailyCalendarReportJob->queueName)
         ->twiceDailyAt(8, 18)
@@ -44,7 +48,20 @@ class Kernel extends ConsoleKernel {
         ->environments(['production']);
     } catch (\Exception $e) {
       $message = "Missing configuration for TriggerCalendarDailyReport";
-      
+    
+      dump($message);
+      Log::error($message);
+    }
+  
+    // Blocco mensile provvigioni agenti
+    try {
+      $schedule->job(new TriggerMonthlyCommissionsBlock(), $monthlyAgentCommissionsBlockJob->queueName)
+        ->monthlyOn(1, '00:10')
+        ->timezone('Europe/Rome')
+        ->environments(['production']);
+    } catch (\Exception $e) {
+      $message = "Missing configuration for TriggerMonthlyCommissionsBlock";
+    
       dump($message);
       Log::error($message);
     }
