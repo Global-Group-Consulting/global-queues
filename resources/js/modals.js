@@ -1,11 +1,13 @@
 window.addEventListener("DOMContentLoaded", function () {
   const deleteModal = document.getElementById("deleteModal");
+  const executeJobModal = document.getElementById("executeJobModal");
   const retryModal = document.getElementById("retryModal");
   const payloadModal = document.getElementById("payloadModal");
   
   const formModals = []
   deleteModal && (formModals.push(deleteModal));
   retryModal && (formModals.push(retryModal));
+  executeJobModal && (formModals.push(executeJobModal));
   
   formModals.forEach((modal) => {
     modal.addEventListener('show.bs.modal', function (event) {
