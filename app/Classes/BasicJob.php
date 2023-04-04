@@ -86,26 +86,29 @@ abstract class BasicJob implements ShouldQueue {
     } else {
       $headers = json_decode($headers, true);
     }
-    
+  
     /**
-     * @var Response
+     * @var Response $result
      */
     $result = Http::withOptions([])
       ->withHeaders($headers);
-    
+  
     if ($this->jobSettings->authType === "Basic") {
       $result = $result->withBasicAuth($this->jobSettings->authUsername, $this->jobSettings->authPassword);
     }
-    
+  
+    /**
+     * @var Response $result
+     */
     $result = $result->$method($url, $payload);
-    
+  
     if ($result->failed()) {
       throw new ManuallyFailedException(json_encode($result->json()));
     }
-    
+  
     $this->job->respData = $result->body();
     $this->job->reqData  = json_encode($payload);
-    
+  
     return $this->job;
   }
   
