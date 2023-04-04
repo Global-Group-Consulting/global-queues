@@ -18,9 +18,8 @@ class JobListController extends Controller {
    * @return View
    */
   public function index(): View {
-    
     return view("jobList.index", [
-      "jobs" => JobList::where([])->orderBy("title")->get()
+      "jobs" => JobList::where([])->orderBy("class")->get()
     ]);
   }
   
@@ -114,14 +113,27 @@ class JobListController extends Controller {
   private function getClassesList() {
     $path  = app_path('Jobs');
     $files = (new Filesystem())->allFiles($path);
-    
+  
     return array_map(function ($file) {
       $name = str_replace('.' . $file->getExtension(), "", $file->getFilename());
-      
+    
       return [
         "text"  => $name,
         "value" => "App\Jobs\\" . $name
       ];
     }, $files);
+  }
+  
+  public function execute(Request $request, JobList $jobList) {
+    $className = $jobList->class;
+    
+    try {
+      $className::dispatch([])->onQueue($jobList->queueName);
+//      $className::dispatchSync([])
+      
+      return redirect()->route("job.index");
+    }catch (\Exception $e) {
+      return redirect()->route("jobList.index")->with("error", $e->getMessage());
+    }
   }
 }
