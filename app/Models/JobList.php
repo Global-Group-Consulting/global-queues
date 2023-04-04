@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -59,4 +60,17 @@ class JobList extends Model {
   ];
   
   protected $payloadKey;
+  
+  /**
+   * @throws Exception
+   */
+  public static function getJobQueue($className): string {
+    $job = self::where("class", $className)->first();
+    
+    if ( !$job) {
+      throw new Exception("Queue name not found for job " . $className);
+    }
+    
+    return $job->queueName;
+  }
 }
