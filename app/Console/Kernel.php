@@ -57,7 +57,7 @@ class Kernel extends ConsoleKernel {
     try {
       $schedule->job(new TriggerMonthlyCommissionsBlock(), $monthlyAgentCommissionsBlockJob->queueName)
         ->monthlyOn(1, '01:10') // questo deve essere fatto secondo il fuso orario UTC, altrimenti la query da esito sbagliato.
-        ->timezone(\DateTimeZone::UTC)
+        ->timezone("UTC")
         ->environments(['production']);
     } catch (\Exception $e) {
       $message = "Missing configuration for TriggerMonthlyCommissionsBlock";
