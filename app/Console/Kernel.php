@@ -56,8 +56,8 @@ class Kernel extends ConsoleKernel {
     // Blocco mensile provvigioni agenti
     try {
       $schedule->job(new TriggerMonthlyCommissionsBlock(), $monthlyAgentCommissionsBlockJob->queueName)
-        ->monthlyOn(1, '00:10')
-        ->timezone('Europe/Rome')
+        ->monthlyOn(1, '01:10') // questo deve essere fatto secondo il fuso orario UTC, altrimenti la query da esito sbagliato.
+        ->timezone(\DateTimeZone::UTC)
         ->environments(['production']);
     } catch (\Exception $e) {
       $message = "Missing configuration for TriggerMonthlyCommissionsBlock";
