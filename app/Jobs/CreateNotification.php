@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class CreateNotification extends BasicJob {
   /**
@@ -34,6 +35,7 @@ class CreateNotification extends BasicJob {
    * @return void
    */
   public function handle() {
+    Log::log("info", "creazione notifica in modo sbagliato", $this->data);
     // Fake job used as a placeholder. The actual job is in the News App
   }
 }

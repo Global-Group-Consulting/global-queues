@@ -9,9 +9,9 @@ services:
       args:
         WWWGROUP: '${WWWGROUP}'
     image: sail-8.1/app
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-      - 'local.api.globalgroup.consulting:host-gateway'
+#    extra_hosts:
+#      - 'host.docker.internal:host-gateway'
+#      - 'local.api.globalgroup.consulting:host-gateway'
     ports:
       - '8090:8000'
     environment:
